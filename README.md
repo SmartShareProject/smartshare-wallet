@@ -1,4 +1,4 @@
-# Linkeye-Wallet
+# Smartshare-Wallet
 
 ## Dependencies
 * Node.js (use the prefered installation method for your OS)
