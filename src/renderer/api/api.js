@@ -3,7 +3,6 @@
  */
 import axios from 'axios'
 import config from './config'
-import router from '../router';
 import {Toast, Indicator} from 'mint-ui';
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -53,7 +52,7 @@ class API {
         let errorCode = data[API.retCode];
 
         //一般错误处理
-        if(errorCode == API.SUCCESS){
+        if(errorCode === API.SUCCESS){
           return data;
           //返回正确码处理
         }else{
@@ -64,11 +63,6 @@ class API {
 
         return Promise.reject(res);
       }
-
-      if(!data){
-        return {success:'0000'}
-      }
-
 
     });
 
@@ -93,7 +87,7 @@ class API {
         if(error[API.retCode]){  //如果有错误码，不走通用错误通道
           if(failFun){
             failFun(error);
-          }else if(error[API.retCode] == API.NOTLOGIN){ //登录失效
+          }else if(error[API.retCode] === API.NOTLOGIN){ //登录失效
             // router.replace({
             //   path:'/login'
             // })
