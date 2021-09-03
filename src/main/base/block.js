@@ -7,7 +7,7 @@
  * return:success return block information
  */
 function getBlockNumbet() {
-  var syndata = web3.eth.eth_syncing()
+  const syndata = web3.eth.eth_syncing();
   if(syndata == null) {
     console.log("Get syndate fail")
   } else {

@@ -11,10 +11,10 @@ function getAccountBalance( address ){
   {
     console.log("The address is null");
   }else{
-    var result = web3.eth.getBalance(address)
+    const result = web3.eth.getBalance(address);
     console.log("Get the balance of the account in lei is" + result);
     //change unit wei to leter
-    var ret =  web3.fromWei(result, "ether");
+    const ret = web3.fromWei(result, "ether");
     console.log("Get the balance of the account in leter is" + ret);
     return ret;
   }

@@ -1,14 +1,15 @@
 const transaction = require('ethereumjs-tx');
 const dbInit = require('../sqlite/init');
-var Web3 = require("web3");
+const Web3 = require("web3");
 
+let web3;
 if (typeof web3 !== 'undefined')
 {
-  var web3 = new Web3(web3.currentProvider);
+  web3 = new Web3(web3.currentProvider);
 }
 else
 {
-  var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 }
 
 /*
@@ -17,37 +18,37 @@ else
  * return:success return transaction hash
  */
 function getSignTransaction(privateKey, nonce, toAddress, sendToBalance, sendFee, sendContent) {
+  const serializedTx = tx.serialize();
   if(!privateKey || !nonce || !toAddress || !sendToBalance || !sendFee) {
     console.log("one of fromAddress, toAddress, sendToBalance, sendFee is null, please give a valid param");
   } else {
     console.log("param is valid, start sign transaction");
-    var numBalance = parseFloat(sendToBalance);
-    var balancetoWei = web3.toWei(numBalance, "ether");
+    const numBalance = parseFloat(sendToBalance);
+    const balancetoWei = web3.toWei(numBalance, "ether");
     console.log("balancetoWei is " + balancetoWei);
-    var oxNumBalance = parseInt(balancetoWei).toString(16);
+    const oxNumBalance = parseInt(balancetoWei).toString(16);
     console.log("16 oxNumBalance is " + oxNumBalance);
-    var gasFee = parseFloat(sendFee);
-    var gasFeeToWei = web3.toWei(gasFee, "ether");
+    const gasFee = parseFloat(sendFee);
+    const gasFeeToWei = web3.toWei(gasFee, "ether");
     console.log("gas fee to wei is " + gasFeeToWei);
-    var gas = gasFeeToWei / 100000000000;
+    const gas = gasFeeToWei / 100000000000;
     console.log("param gas is " + gas);
-    var oxgasFeeToWei = parseInt(gas).toString(16);
+    const oxgasFeeToWei = parseInt(gas).toString(16);
     console.log("16 oxgasFeeToWei is " + oxgasFeeToWei);
-    var privateKeyBuffer = privateKey;
-    var letAddress = toAddress.substr(3); //23 79 0a 25 6a 41 c3 df a1 92 57 97 ae 47 6e 36 65 15 8f 76
+    const privateKeyBuffer = privateKey;
+    const letAddress = toAddress.substr(3); //23 79 0a 25 6a 41 c3 df a1 92 57 97 ae 47 6e 36 65 15 8f 76
     console.log("let address is " + letAddress);
-    var rawTx = {
-      nonce:nonce,
+    const rawTx = {
+      nonce: nonce,
       gasPrice: '0x174876e800',
-      gas:'0x'+ oxgasFeeToWei,
+      gas: '0x' + oxgasFeeToWei,
       to: '0x' + letAddress,
-      value:'0x' + oxNumBalance,
-      subId:'0x00000000000000000000000000000000',
-      data:'0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675',
+      value: '0x' + oxNumBalance,
+      subId: '0x00000000000000000000000000000000',
+      data: '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675',
     };
-    var tx = new transaction(rawTx);
+    const tx = new transaction(rawTx);
     tx.sign(privateKeyBuffer);
-    var serializedTx = tx.serialize();
     if(serializedTx == null) {
       console.log("Serialized transaction fail")
     } else {

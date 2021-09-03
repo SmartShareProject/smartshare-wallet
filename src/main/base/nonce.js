@@ -11,11 +11,11 @@
 // }
 
 function getTransactionNonce(address){
+  const nonce = "";//web3.eth.getTransactionCount(address)
   if (address == null)
   {
     console.log("address is null");
   }else{
-    var nonce = "";//web3.eth.getTransactionCount(address)
     console.log("the account address " + address + "nonce is " + nonce);
   }
   return nonce;
