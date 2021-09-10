@@ -1,5 +1,3 @@
-import appCloseIpc from "../ipc/ipcAppCloseMsg";
-
 const { app } = require('electron');
 const appClose = _appCloseIpc => ({
   ['app-close'](event, appClose) {

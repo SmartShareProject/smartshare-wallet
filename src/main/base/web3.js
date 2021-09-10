@@ -1,5 +1,5 @@
 // set provider
-var Web3 = require("web3");
+const Web3 = require("web3");
 
 if (typeof web3 !== 'undefined')
 {

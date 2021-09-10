@@ -1,4 +1,3 @@
-import windowMinIpc from "../ipc/ipcWindowMinMsg";
 import { appWindowMin } from '../index'
 
 const windowMin = _windowMinIpc => ({
