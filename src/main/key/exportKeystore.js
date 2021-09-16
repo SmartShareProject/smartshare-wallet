@@ -18,7 +18,7 @@ const exportKeystore = _exportKeystoreIpc => ({
     } else {
       console.log("Receive address from front and the Address is " + exportKeystore.address);
       console.log("Receive address from front and the Address is " + exportKeystore.password);
-      var db = dbInit.checkCreateLinkeyeDb();
+      const db = dbInit.checkCreateLinkeyeDb();
       if(!db){
         console.log("db handle is null")
         requestBack({
@@ -28,10 +28,10 @@ const exportKeystore = _exportKeystoreIpc => ({
         })
       } else {
         console.log("start to operate database");
-        var sql = "SELECT account_keystore FROM account where account_address = " + "\'" + exportKeystore.address + "\'";
+        const sql = "SELECT account_keystore FROM account where account_address = " + "\'" + exportKeystore.address + "\'";
         db.each(sql, function w(err, row) {
           console.log("Query account_keystore success and account_private_key is" + row.account_keystore)
-          var keyObj = JSON.parse(row.account_keystore);
+          const keyObj = JSON.parse(row.account_keystore);
           keythereum.recover(exportKeystore.password, keyObj, function(privateKey){
             console.log("recover private key is " + privateKey);
             if(Buffer.isBuffer(privateKey)){
