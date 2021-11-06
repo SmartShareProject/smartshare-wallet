@@ -27,7 +27,7 @@ const createLogin = _createLoginIpc => ({
         const sql = "SELECT login_passwd, is_login FROM login where login_id = 'linkeyeID'";
         db.each(sql, function w(err, row) {
           console.log("Query login_passwd, is_login success and login_passwd is" + row.login_passwd + " is_login is " + row.is_login)
-          if (password == row.login_passwd) {
+          if (password === row.login_passwd) {
             requestBack({
               success: true,
               loginMsg: row.is_login
