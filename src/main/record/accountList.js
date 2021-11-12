@@ -1,5 +1,3 @@
-import accountListIpc from '../ipc/ipcAccountList'
-const { shell } = require('electron');
 const dbInit  = require('../sqlite/init');
 
 const accountList = _accountListIpc => ({
@@ -16,7 +14,7 @@ const accountList = _accountListIpc => ({
         errorCode:903
       });
     }else {
-      var db = dbInit.checkCreateLinkeyeDb();
+      const db = dbInit.checkCreateLinkeyeDb();
       if(!db){
         console.log("db handle is null");
         requestBack({
@@ -25,7 +23,7 @@ const accountList = _accountListIpc => ({
           errorCode:904
         });
       }
-      var sql = "select account_id, account_name, account_address from account";
+      const sql = "select account_id, account_name, account_address from account";
       db.all(sql, function(err, res) {
         if(!err) {
           var accountLists = JSON.stringify(res);
